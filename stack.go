@@ -7,12 +7,13 @@ import (
 	"strconv"
 )
 
-const offset = 3
-
 // Errorf saves stack trace and pass arguments to
 // fmt.Errorf.
 func Errorf(format string, a ...interface{}) error {
-	return trace(fmt.Errorf(format, a...), offset)
+	return &withStack{
+		fmt.Errorf(format, a...),
+		callers(),
+	}
 }
 
 // Origin returns unwrapped origin of the error.
@@ -32,7 +33,7 @@ func Origin(err error) error {
 
 // Trace returns stack trace for error.
 func Trace(err error) []runtime.Frame {
-	stack := make([]runtime.Frame, 0, defaultStackCap)
+	stack := make([]runtime.Frame, 0, 30)
 
 	for {
 		if err == nil {
