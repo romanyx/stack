@@ -1,0 +1,4 @@
+github.com/fatih/astrewrite v0.0.0-20191207154002-9094e544fcef h1:NQhozma2hi4BWW5q0qxka4G3bRNf+P/UgdmAVahUabM=
+github.com/fatih/astrewrite v0.0.0-20191207154002-9094e544fcef/go.mod h1:Q9oPjZxY7Z0tvrD5KtBTVLiSwATtmhafFD/Lb0fyzOk=
+github.com/spf13/pflag v1.0.5 h1:iy+VFUOCP1a+8yFto/drg2CJ5u0yRoB7fZw3DKv/JXA=
+github.com/spf13/pflag v1.0.5/go.mod h1:McXfInJRrz4CZXVZOBLb0bTZqETkiAhM9Iw0y3An2Bg=
