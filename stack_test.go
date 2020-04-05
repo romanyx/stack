@@ -29,34 +29,34 @@ func TestTrace(t *testing.T) {
 			name: "wrapped",
 			in:   frameA(),
 			expect: []runtime.Frame{
+				{Function: "runtime.goexit"},
+				{Function: "testing.tRunner"},
 				{
-					Function: "github.com/romanyx/stack_test.frameB",
+					Function: "github.com/romanyx/stack_test.TestTrace",
 				},
 				{
 					Function: "github.com/romanyx/stack_test.frameA",
 				},
 				{
-					Function: "github.com/romanyx/stack_test.TestTrace",
+					Function: "github.com/romanyx/stack_test.frameB",
 				},
-				{Function: "testing.tRunner"},
-				{Function: "runtime.goexit"},
 			},
 		},
 		{
 			name: "fmt wrapped",
 			in:   fmt.Errorf("fmt: %w", frameA()),
 			expect: []runtime.Frame{
+				{Function: "runtime.goexit"},
+				{Function: "testing.tRunner"},
 				{
-					Function: "github.com/romanyx/stack_test.frameB",
+					Function: "github.com/romanyx/stack_test.TestTrace",
 				},
 				{
 					Function: "github.com/romanyx/stack_test.frameA",
 				},
 				{
-					Function: "github.com/romanyx/stack_test.TestTrace",
+					Function: "github.com/romanyx/stack_test.frameB",
 				},
-				{Function: "testing.tRunner"},
-				{Function: "runtime.goexit"},
 			},
 		},
 	}

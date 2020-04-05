@@ -57,7 +57,7 @@ func Trace(err error) []runtime.Frame {
 		return nil
 	}
 
-	return reverse(uniq(stack))
+	return uniq(stack)
 }
 
 func uniq(stack []runtime.Frame) []runtime.Frame {
@@ -73,12 +73,4 @@ func uniq(stack []runtime.Frame) []runtime.Frame {
 		j++
 	}
 	return stack[:j]
-}
-
-func reverse(stack []runtime.Frame) []runtime.Frame {
-	for i := len(stack)/2 - 1; i >= 0; i-- {
-		opp := len(stack) - 1 - i
-		stack[i], stack[opp] = stack[opp], stack[i]
-	}
-	return stack
 }
