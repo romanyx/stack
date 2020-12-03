@@ -4,7 +4,6 @@ import (
 	"errors"
 	"fmt"
 	"runtime"
-	"strconv"
 )
 
 // Errorf saves stack trace and pass arguments to
@@ -33,7 +32,7 @@ func Origin(err error) error {
 
 // Trace returns stack trace for error.
 func Trace(err error) []runtime.Frame {
-	stack := make([]runtime.Frame, 0, 30)
+	var stack []runtime.Frame
 
 	for {
 		if err == nil {
@@ -46,10 +45,7 @@ func Trace(err error) []runtime.Frame {
 			continue
 		}
 
-		stk := e.StackTrace()
-		for i := len(stk) - 1; i >= 0; i-- {
-			stack = append(stack, stk[i])
-		}
+		stack = e.StackTrace()
 		err = errors.Unwrap(err)
 	}
 
@@ -57,20 +53,5 @@ func Trace(err error) []runtime.Frame {
 		return nil
 	}
 
-	return uniq(stack)
-}
-
-func uniq(stack []runtime.Frame) []runtime.Frame {
-	seen := make(map[string]struct{}, len(stack))
-	j := 0
-	for _, frame := range stack {
-		v := frame.File + ":" + strconv.Itoa(frame.Line)
-		if _, ok := seen[v]; ok {
-			continue
-		}
-		seen[v] = struct{}{}
-		stack[j] = frame
-		j++
-	}
-	return stack[:j]
+	return stack
 }
